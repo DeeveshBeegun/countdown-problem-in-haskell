@@ -90,3 +90,7 @@ exprs [] = []
 exprs [n] = [Val n] 
 exprs ns = [res | (ls, rs) <- split ns, l <- exprs ls, r <- exprs rs, res <- [App opp l r | opp <- [Add, Mul]]]
 
+-- solve - is a function that uses the previously defined functions to solve the countdown problem
+-- it returns all expressions whose list of values is a permutation of the given list
+solve ::[Int] -> Int -> [Expr]
+solve ns n =  [e | ns' <- perms ns, e <- exprs ns', eval e == n]
